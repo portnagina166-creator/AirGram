@@ -189,6 +189,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px soli
   <div class="sw" id="gsw"></div>
   <input id="gn" maxlength="40" placeholder="Название группы" aria-label="Название группы">
   <p class="sub" id="gm">Участники</p>
+  <p class="sub" id="gown" hidden></p>
   <div class="mems" id="gl"></div>
   <input id="gq" type="search" placeholder="Найти людей, чтобы добавить" aria-label="Найти людей, чтобы добавить" autocomplete="off">
   <div id="gr"></div>
@@ -223,7 +224,7 @@ const av=(n,c,img)=>okImg(img)
  :`<div class="av" style="background:${HEX.test(c)?c:"#3390ec"}">${esc(Array.from(n||"?")[0]||"?")}</div>`;
 let tt;function toast(t){const e=$("toast");e.textContent=t;e.hidden=false;clearTimeout(tt);tt=setTimeout(()=>{e.hidden=true},3000)}
 
-const ERR=[["Invalid login credentials","Неверная почта или пароль"],["User already registered","Эта почта уже зарегистрирована"],["at least 6 characters","Пароль — минимум 6 символов"],["Email not confirmed","Подтвердите почту по ссылке из письма"],["rate limit","Слишком много попыток — подождите немного"],["invalid format","Введите настоящий адрес почты"],["valid email","Введите настоящий адрес почты"],["Failed to fetch","Нет связи с сервером"],["too fast","Слишком часто — подождите секунду"],["too many members","Слишком много участников (максимум 200)"],["bad title","Название группы: от 1 до 40 символов"],["general","Из общего чата выйти нельзя"],["forbidden","Нет доступа"],["bad user","Такого человека нет"],["row-level security","Нет доступа к чату"]];
+const ERR=[["Invalid login credentials","Неверная почта или пароль"],["User already registered","Эта почта уже зарегистрирована"],["at least 6 characters","Пароль — минимум 6 символов"],["Email not confirmed","Подтвердите почту по ссылке из письма"],["rate limit","Слишком много попыток — подождите немного"],["invalid format","Введите настоящий адрес почты"],["valid email","Введите настоящий адрес почты"],["Failed to fetch","Нет связи с сервером"],["too fast","Слишком часто — подождите секунду"],["too many members","Слишком много участников (максимум 200)"],["bad title","Название группы: от 1 до 40 символов"],["general","Из общего чата выйти нельзя"],["forbidden","Это может делать только создатель группы"],["bad user","Такого человека нет"],["row-level security","Нет доступа к чату"]];
 const errText=m=>{m=String(m||"");for(const[k,v]of ERR)if(m.includes(k))return v;return m||"Что-то пошло не так"};
 
 /* ===== Тема ===== */
@@ -318,6 +319,7 @@ function stop(){
 
 /* ===== Список чатов ===== */
 const partnerOf=c=>c.members.find(id=>id!==me.id);
+const isOwner=c=>!!c&&c.kind==="group"&&!!me&&c.created_by===me.id;
 const chatName=c=>c.kind==="direct"?pname(partnerOf(c)):(c.title||"Группа");
 const chatAv=c=>{
  if(c.kind==="direct"){const p=P[partnerOf(c)]||{};return av(p.name||"?",p.color,p.avatar)}
@@ -327,7 +329,7 @@ const stamp=c=>new Date(c.last?c.last.created_at:c.created_at).getTime();
 
 async function loadChats(){
  const[cr,mr,lr]=await Promise.all([
-  sb.from("chats").select("id,kind,title,color,avatar,created_at"),
+  sb.from("chats").select("id,kind,title,color,avatar,created_by,created_at"),
   sb.from("members").select("chat_id,user_id"),
   sb.rpc("my_last_messages")]);
  if(cr.error||mr.error){toast("Не удалось загрузить чаты — запустили ли вы schema2.sql?");return}
@@ -428,7 +430,7 @@ function head(){
  if(c.kind==="group"){const on=c.members.filter(id=>online.has(id)).length;s.textContent=plural(c.members.length)+(on?", в сети: "+on:"")}
  else s.textContent=online.has(partnerOf(c))?"в сети":"не в сети";
 }
-$("hi").onclick=()=>{const c=chats.get(cur);if(c&&c.kind==="group")openGroup("edit")};
+$("hi").onclick=()=>{const c=chats.get(cur);if(c&&c.kind==="group")openGroup(isOwner(c)?"edit":"view")};
 
 /* ===== Сообщения ===== */
 const COLS="id,chat_id,user_id,body,created_at";
@@ -506,7 +508,7 @@ function onTyping(p){
 }
 async function onChatUpdate(n){
  if(!chats.has(n.id))return;
- const{data}=await sb.from("chats").select("id,title,color,avatar").eq("id",n.id).maybeSingle();
+ const{data}=await sb.from("chats").select("id,title,color,avatar,created_by").eq("id",n.id).maybeSingle();
  const c=chats.get(n.id);
  if(!data||!c)return;
  Object.assign(c,data);renderList();if(cur===n.id)renderHead();
@@ -596,20 +598,26 @@ $("pout").onclick=()=>{if(sb)sb.auth.signOut()};
 let G=null,gTimer;
 $("ng").onclick=()=>openGroup("new");
 function openGroup(mode){
- const c=mode==="edit"?chats.get(cur):null;
- if(mode==="edit"&&(!c||c.kind!=="group"))return;
+ const c=mode==="new"?null:chats.get(cur);
+ if(mode!=="new"&&(!c||c.kind!=="group"))return;
+ if(mode==="edit"&&!isOwner(c))mode="view";
  G={mode,id:c?c.id:null,c:c&&HEX.test(c.color)?c.color:"#65aadd",img:c&&okImg(c.avatar)?c.avatar:null,add:new Map(),res:[]};
- $("gt").textContent=mode==="edit"?"Группа":"Новая группа";
- $("gn").value=c?c.title||"":"";$("gq").value="";
- $("go").textContent=mode==="edit"?"Сохранить":"Создать";
- $("gleave").hidden=!(mode==="edit"&&c.id!==GENERAL);
- paintG();$("gdlg").hidden=false;$("gn").focus();
+ const v=mode==="view";
+ $("gt").textContent=mode==="new"?"Новая группа":v?"Группа":"Изменить группу";
+ $("gn").value=c?c.title||"":"";$("gn").readOnly=v;$("gq").value="";
+ $("go").textContent=mode==="edit"?"Сохранить":"Создать";$("go").hidden=v;
+ $("gc").textContent=v?"Закрыть":"Отмена";
+ $("gleave").hidden=!(c&&c.id!==GENERAL);
+ paintG();$("gdlg").hidden=false;if(!v)$("gn").focus();
 }
 function paintG(){
- const n=$("gn").value.trim(),c=G.mode==="edit"?chats.get(G.id):null,old=c?c.members:[];
+ const v=G.mode==="view",n=$("gn").value.trim(),c=G.mode==="new"?null:chats.get(G.id),old=c?c.members:[];
  $("gav").innerHTML=av(n||"?",G.c,G.img);
- $("gsw").innerHTML=swatches(G.c);$("gsw").hidden=!!G.img;$("gdel").hidden=!G.img;
- let h=old.slice(0,30).map(id=>`<span class="mem">${esc(pname(id))}</span>`).join("");
+ $("gsw").innerHTML=swatches(G.c);$("gsw").hidden=v||!!G.img;
+ $("gup").hidden=v;$("gdel").hidden=v||!G.img;$("gq").hidden=v;$("gr").hidden=v;
+ $("gown").hidden=!v;
+ if(v)$("gown").textContent=c&&c.created_by&&P[c.created_by]?"Менять группу и добавлять людей может только создатель: "+pname(c.created_by):"Настройки этой группы менять нельзя";
+ let h=old.slice(0,30).map(id=>`<span class="mem">${esc(pname(id))}${c&&id===c.created_by?" · создатель":""}</span>`).join("");
  if(old.length>30)h+=`<span class="mem">и ещё ${old.length-30}</span>`;
  h+=[...G.add.values()].map(p=>`<span class="mem new">${esc(p.name)}<button type="button" data-rm="${p.id}" aria-label="Убрать ${esc(p.name)}">✕</button></span>`).join("");
  $("gl").innerHTML=h||'<span class="sub">Пока никого — добавьте людей ниже</span>';
@@ -639,7 +647,8 @@ $("gc").onclick=closeG;
 $("gdlg").onclick=e=>{if(e.target.id==="gdlg")closeG()};
 $("go").onclick=async()=>{
  const t=$("gn").value.trim();
- if(!t||!G)return;
+ if(!t||!G||G.mode==="view")return;
+ if(G.mode==="edit"&&!isOwner(chats.get(G.id))){toast("Группу меняет только создатель");return}
  const mode=G.mode,id=G.id,ids=[...G.add.keys()],color=G.c,img=G.img;
  $("go").disabled=true;
  let err=null,cid=id;
