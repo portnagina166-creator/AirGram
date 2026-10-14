@@ -331,7 +331,7 @@ const av=(n,c,img)=>okImg(img)
  :`<div class="av" style="background:${HEX.test(c)?c:"#3390ec"}">${esc(Array.from(n||"?")[0]||"?")}</div>`;
 let tt;function toast(t){const e=$("toast");e.textContent=t;e.hidden=false;clearTimeout(tt);tt=setTimeout(()=>{e.hidden=true},3500)}
 
-const ERR=[["Invalid login credentials","Неверная почта или пароль"],["User already registered","Эта почта уже зарегистрирована"],["at least 6 characters","Пароль — минимум 6 символов"],["Email not confirmed","Подтвердите почту по ссылке из письма"],["rate limit","Слишком много попыток — подождите немного"],["invalid format","Введите настоящий адрес почты"],["valid email","Введите настоящий адрес почты"],["Failed to fetch","Нет связи с сервером"],["too fast","Слишком часто — подождите секунду"],["too many members","Слишком много участников (максимум 200)"],["bad title","Название группы: от 1 до 40 символов"],["general","С общим чатом так нельзя"],["forbidden","Это может делать только создатель группы"],["bad user","Такого человека нет"],["profiles_tag_key","Этот тег уже занят"],["profiles_tag_check","Тег: 3–24 символа, латиница, цифры и _"],["bad reply","Нельзя ответить на это сообщение"],["bad body","Сообщение должно быть от 1 до 2000 символов"],["Bucket not found","Хранилище фото не создано — запустите schema4.sql"],["exceeded the maximum allowed size","Фото слишком большое"],["row-level security","Нет доступа к чату"]];
+const ERR=[["Invalid login credentials","Неверная почта или пароль"],["User already registered","Эта почта уже зарегистрирована"],["at least 6 characters","Пароль — минимум 6 символов"],["Email not confirmed","Подтвердите почту по ссылке из письма"],["rate limit","Слишком много попыток — подождите немного"],["invalid format","Введите настоящий адрес почты"],["valid email","Введите настоящий адрес почты"],["Failed to fetch","Нет связи с сервером"],["too fast","Слишком часто — подождите секунду"],["too many members","Слишком много участников (максимум 200)"],["bad title","Название группы: от 1 до 40 символов"],["general","С общим чатом так нельзя"],["forbidden","Это может делать только создатель группы"],["bad user","Такого человека нет"],["profiles_tag_key","Этот тег уже занят"],["profiles_tag_check","Тег: 3–24 символа, латиница, цифры и _"],["bad reply","Нельзя ответить на это сообщение"],["bad body","Сообщение должно быть от 1 до 2000 символов"],["Bucket not found","Хранилище фото не создано — запустите storage.sql"],["exceeded the maximum allowed size","Фото слишком большое"],["row-level security","Нет доступа к чату"]];
 const errText=m=>{m=String(m||"");for(const[k,v]of ERR)if(m.includes(k))return v;return m||"Что-то пошло не так"};
 
 /* ===== Тема ===== */
@@ -708,7 +708,7 @@ $("msgs").onclick=e=>{
 async function loadHistory(id){
  const{data,error}=await sb.from("messages").select(COLS).eq("chat_id",id).order("id",{ascending:false}).limit(100);
  if(cur!==id)return;
- if(error){toast("Не удалось загрузить сообщения — запущен ли schema4.sql?");return}
+ if(error){toast("Не удалось загрузить сообщения — запущены ли schema4.sql и schema5.sql?");return}
  const rows=data.reverse();
  rows.forEach(r=>MSG.set(r.id,r));
  await needProfiles(rows.map(r=>r.user_id));
