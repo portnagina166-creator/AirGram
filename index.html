@@ -4,16 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AirGram</title>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141b26" media="(prefers-color-scheme: dark)">
 <style>
-:root{--bg:#fff;--tx:#0f1419;--mut:#707579;--acc:#3390ec;--hov:#f4f4f5;--in:#fff;--out:#e3f6d3;--wall:#d5e4cc;--line:#e6e6e6;--inp:#f1f3f4;--err:#c93a34;
+:root{--bg:#ffffff;--paper:#eef1f5;--tx:#141c28;--mut:#667386;--acc:#1f46b8;--btn:#1f46b8;--hov:#eef1f6;--in:#ffffff;--out:#1f46b8;--wall:#e8ecf1;--line:#d9dfe7;--inp:#f3f5f9;--err:#b3261e;--red:#d93a2f;--hatch:rgba(31,70,184,.05);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]):not([data-theme="sky"]):not([data-theme="black"]){--bg:#17212b;--tx:#f5f5f5;--mut:#7f91a4;--hov:#202b36;--in:#182533;--out:#2b5278;--wall:#0e1621;--line:#0e1621;--inp:#242f3d;--err:#ff7b72}}
-:root[data-theme="black"]{--bg:#161616;--tx:#ececec;--mut:#8b8b8b;--acc:#5b8def;--hov:#232323;--in:#242424;--out:#363a40;--wall:#0b0b0b;--line:#262626;--inp:#262626;--err:#ff7b72;color-scheme:dark}
-:root[data-theme="dark"]{--bg:#17212b;--tx:#f5f5f5;--mut:#7f91a4;--hov:#202b36;--in:#182533;--out:#2b5278;--wall:#0e1621;--line:#0e1621;--inp:#242f3d;--err:#ff7b72}
-:root[data-theme="sky"]{--bg:#f4faff;--tx:#12304a;--mut:#4b7191;--acc:#2a8fdc;--hov:#e2f1fc;--in:#fff;--out:#cfeaff;--line:#d3e7f6;--inp:#e4f1fb;--wall:radial-gradient(ellipse 60% 22% at 18% 12%,rgba(255,255,255,.95),transparent 70%),radial-gradient(ellipse 50% 18% at 82% 30%,rgba(255,255,255,.8),transparent 70%),radial-gradient(ellipse 70% 20% at 35% 62%,rgba(255,255,255,.7),transparent 70%),linear-gradient(180deg,#8fcdfa,#cfeafd 55%,#f2f9ff);background:linear-gradient(180deg,#8fcdfa,#cfeafd 55%,#f2f9ff)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]):not([data-theme="sky"]):not([data-theme="black"]){--bg:#141b26;--paper:#0d121a;--tx:#e9edf3;--mut:#8593a6;--acc:#8aa8ff;--btn:#2a54d1;--hov:#1b2432;--in:#1b2432;--out:#2a54d1;--wall:#0d121a;--line:#243044;--inp:#1b2432;--err:#ff8a80;--red:#e5483c;--hatch:rgba(138,168,255,.05)}}
+:root[data-theme="dark"]{--bg:#141b26;--paper:#0d121a;--tx:#e9edf3;--mut:#8593a6;--acc:#8aa8ff;--btn:#2a54d1;--hov:#1b2432;--in:#1b2432;--out:#2a54d1;--wall:#0d121a;--line:#243044;--inp:#1b2432;--err:#ff8a80;--red:#e5483c;--hatch:rgba(138,168,255,.05)}
+:root[data-theme="black"]{--bg:#151515;--paper:#0a0a0a;--tx:#ebebeb;--mut:#8a8a8a;--acc:#a3b3ff;--btn:#3a4580;--hov:#202020;--in:#202020;--out:#333d73;--wall:#0a0a0a;--line:#272727;--inp:#1d1d1d;--err:#ff8a80;--red:#d9483c;--hatch:rgba(255,255,255,.03);color-scheme:dark}
+:root[data-theme="sky"]{--bg:#f4faff;--paper:#dcecfa;--tx:#12304a;--mut:#4b7191;--acc:#1d64c2;--btn:#1d64c2;--hov:#e2f1fc;--in:#fff;--out:#1d64c2;--line:#c9def0;--inp:#e4f1fb;--red:#d93a2f;--hatch:transparent;--wall:radial-gradient(ellipse 60% 22% at 18% 12%,rgba(255,255,255,.95),transparent 70%),radial-gradient(ellipse 50% 18% at 82% 30%,rgba(255,255,255,.8),transparent 70%),radial-gradient(ellipse 70% 20% at 35% 62%,rgba(255,255,255,.7),transparent 70%),linear-gradient(180deg,#8fcdfa,#cfeafd 55%,#f2f9ff);background:linear-gradient(180deg,#8fcdfa,#cfeafd 55%,#f2f9ff)}
 *{box-sizing:border-box;margin:0}
 [hidden]{display:none!important}
-html,body{height:100%;background:var(--bg);color:var(--tx);font:15px/1.4 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+html,body{height:100%;background:var(--paper);color:var(--tx);font:15px/1.45 "Onest",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
 .av{width:50px;height:50px;border-radius:50%;flex:none;color:#fff;font-weight:600;font-size:20px;display:flex;align-items:center;justify-content:center}
@@ -207,6 +209,126 @@ a.lk{color:var(--acc);text-decoration:underline;overflow-wrap:anywhere}
 mark{background:rgba(255,200,0,.4);color:inherit;border-radius:3px}
 #csm{margin:8px auto;display:block;color:var(--acc);font-weight:600;padding:8px 16px}
 
+/* ===== Оформление «Авиапочта»: марки вместо аватарок, полосатый край аэрограммы ===== */
+:root{--fd:"Unbounded","Onest",system-ui,sans-serif;--gap:var(--bg);--stripe:repeating-linear-gradient(-45deg,var(--red) 0 7px,var(--gap) 7px 14px,#2b57c9 14px 21px,var(--gap) 21px 28px)}
+*{scrollbar-width:thin}
+.ic{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.wm{font-family:var(--fd);font-weight:600;letter-spacing:-.02em}
+.stripe{height:5px;flex:none;background:var(--stripe)}
+
+/* Аватарки: почтовые марки */
+.av{border-radius:6px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+@supports ((mask-composite:intersect) or (-webkit-mask-composite:source-in)){
+ .av{--r:2.4px;--p:9px;--n:#0000 calc(var(--r) - .5px),#000 var(--r);border-radius:0;
+  -webkit-mask:radial-gradient(circle at 50% 0,var(--n)) 0 0/var(--p) 100% round no-repeat,radial-gradient(circle at 50% 100%,var(--n)) 0 0/var(--p) 100% round no-repeat,radial-gradient(circle at 0 50%,var(--n)) 0 0/100% var(--p) no-repeat round,radial-gradient(circle at 100% 50%,var(--n)) 0 0/100% var(--p) no-repeat round;
+  -webkit-mask-composite:source-in,source-in,source-in,source-in;
+  mask:radial-gradient(circle at 50% 0,var(--n)) 0 0/var(--p) 100% round no-repeat,radial-gradient(circle at 50% 100%,var(--n)) 0 0/var(--p) 100% round no-repeat,radial-gradient(circle at 0 50%,var(--n)) 0 0/100% var(--p) no-repeat round,radial-gradient(circle at 100% 50%,var(--n)) 0 0/100% var(--p) no-repeat round;
+  mask-composite:intersect,intersect,intersect,intersect}
+ .ib .av,.mav .av,.mu .av,.meb .av,.hi .av,#mn .av{--r:1.8px;--p:7px}
+}
+.mav{border-radius:0}
+.ib{border-radius:6px}
+.ib .ic{width:22px;height:22px}
+.ib .av{width:34px;height:34px}
+
+/* Вход */
+#auth{background:var(--paper)}
+.card{border-radius:10px;position:relative;padding-top:26px;border:1px solid var(--line)}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:var(--stripe);border-radius:10px 10px 0 0}
+.card>b{font-family:var(--fd);font-weight:500;font-size:16px;letter-spacing:-.01em}
+.card h1{font-family:var(--fd);font-weight:600;font-size:26px;letter-spacing:-.03em}
+.card input:not([type=file]){border-radius:6px;border:1px solid var(--line);background:var(--inp)}
+.card input:not([type=file]):focus-visible{border-color:var(--acc);outline:none}
+.btn{background:var(--btn);border-radius:6px;padding:12px}
+.act button,.eb button{border-radius:6px}
+.sw1,.sq{border-radius:4px}
+.tp{border-radius:6px}
+.ia{border-radius:6px}
+.ia.txt{border-radius:6px}
+
+/* Боковая панель */
+#side{width:360px;background:var(--bg)}
+.brand{display:flex;align-items:center;gap:10px;padding:14px 16px 12px;color:var(--acc)}
+.brand .ic{width:26px;height:26px;stroke-width:1.5}
+.brand .wm{font-size:18px;color:var(--tx)}
+.sbox{display:flex;align-items:center;gap:8px;margin:10px 12px 8px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:var(--inp);color:var(--mut)}
+.sbox:focus-within{border-color:var(--acc)}
+.sbox input{flex:1;min-width:0;border:0;background:none;color:var(--tx);font:inherit;padding:10px 0}
+.sbox input:focus-visible{outline:none}
+.dock{display:flex;align-items:center;gap:4px;padding:8px 10px;border-top:1px solid var(--line);background:var(--bg)}
+.meb{display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-align:left;padding:2px 6px;border-radius:6px}
+.meb:hover{background:var(--hov)}
+.meb .av{width:38px;height:38px;font-size:16px}
+.meb .mn{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sh{padding:12px 16px 6px;font-weight:600;font-size:13.5px;color:var(--mut)}
+.row{position:relative;padding:10px 14px;border-bottom:1px solid var(--line)}
+#list .row .av{width:46px;height:46px;font-size:18px}
+.top b{font-weight:600}
+.row.on{background:var(--hov);color:var(--tx)}
+.row.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--acc)}
+.row.on .pv,.row.on .top span{color:var(--mut)}
+.row.on .pv.typ{color:var(--acc)}
+.badge{background:var(--red);color:#fff;border-radius:3px;min-width:20px;padding:0 5px;font-size:12px;line-height:20px;font-weight:700}
+.badge.mute{background:var(--mut)}
+.row.on .badge{background:var(--red);color:#fff}
+.row.on .badge.mute{background:var(--mut)}
+
+/* Область чата */
+#chat{background-color:var(--wall);background-image:repeating-linear-gradient(135deg,transparent 0 20px,var(--hatch) 20px 21px)}
+#empty{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;background:none;padding:0;border-radius:0;color:var(--mut)}
+#empty .env{width:84px;height:84px;stroke-width:1.1;color:var(--acc);margin-bottom:6px}
+#empty .wm{font-size:17px;color:var(--tx)}
+.hd{position:relative;min-height:62px;padding:6px 12px 10px 6px;border-bottom:0;background:var(--bg)}
+.hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--stripe)}
+.hi{border-radius:6px}
+.ti b{font-weight:600}
+.none{background:var(--bg);color:var(--mut);border:1px solid var(--line);border-radius:6px}
+#msgs{padding:14px 12px;gap:5px}
+.b{border-radius:6px;padding:7px 11px 5px;border:1px solid var(--line)}
+.b.out,.b.in{border-radius:6px}
+.b.out{background:var(--out);color:#fff;border-color:transparent}
+.b.out small{color:rgba(255,255,255,.72)}
+.b.out a.lk{color:#fff}
+.b.out button.tg{color:#fff;text-decoration:underline}
+.b.out button.tg.me{background:rgba(255,255,255,.22);text-decoration:none}
+.b.out .rq{background:rgba(255,255,255,.14);border-left-color:#fff}
+.b.out .rq b{color:#fff}
+.b.out .rq span{color:rgba(255,255,255,.82)}
+.b.out .fw{color:rgba(255,255,255,.88)}
+.b.nb{border:0;background:none}
+.b.pb{padding:3px 3px 4px}
+.ph{border-radius:4px}
+button.tg.me{background:var(--btn);color:#fff;border-radius:3px}
+.rq{border-radius:3px}
+.stk .cap{border-radius:4px;border:1px solid var(--line)}
+#mw #jd{border-radius:6px;border:1px solid var(--line)}
+#jd span{background:var(--red);border-radius:3px}
+.ft{padding:9px 10px;border-top:1px solid var(--line);background:var(--bg)}
+.ft textarea{border:1px solid var(--line);border-radius:6px;background:var(--inp);padding:11px 12px}
+.ft textarea:focus-visible{border-color:var(--acc);outline:none}
+#send{border-radius:6px;background:var(--btn);width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+#rp,#att,#pk,#mn{border-top:1px solid var(--line)}
+.chip{border-radius:4px;border:1px solid var(--line);background:none}
+.chip.on{background:var(--btn);color:#fff;border-color:var(--btn)}
+.cell{border-radius:6px}
+.sbtn{border-radius:6px;width:40px;height:40px;font-size:0}
+.sbtn .ic{width:21px;height:21px}
+.sbtn.dng{color:var(--err)}
+#csq{border-radius:6px;border:1px solid var(--line)}
+.cr select,.cr input{border-radius:4px;border:1px solid var(--line)}
+#toast{border-radius:6px;bottom:96px}
+
+/* Окна: на телефоне выезжают снизу */
+@keyframes sheet{from{transform:translateY(28px);opacity:0}}
+.ov:not([hidden]) .card{animation:sheet .18s ease-out}
+@media(max-width:720px){
+ .ov{align-items:flex-end;padding:0}
+ .ov .card,.ov .card.big{width:100%;max-height:92%;border-radius:12px 12px 0 0;border-bottom:0}
+ .ov .card::before{border-radius:12px 12px 0 0}
+ #side{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.ov:not([hidden]) .card{animation:none}}
+
 /* Тема «Воздух» */
 :root[data-theme="sky"] body{background:none}
 :root[data-theme="sky"] body::before{content:"";position:fixed;inset:-10% -15%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 28% 10% at 20% 14%,rgba(255,255,255,.95),transparent 70%),radial-gradient(ellipse 24% 8% at 75% 30%,rgba(255,255,255,.85),transparent 70%),radial-gradient(ellipse 30% 9% at 40% 62%,rgba(255,255,255,.75),transparent 70%),radial-gradient(ellipse 26% 8% at 85% 80%,rgba(255,255,255,.8),transparent 70%);animation:drift 50s ease-in-out infinite alternate}
@@ -228,14 +350,36 @@ mark{background:rgba(255,200,0,.4);color:inherit;border-radius:3px}
 }
 @media(prefers-reduced-motion:reduce){#chat{transition:none}:root[data-theme="sky"] body::before{animation:none}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5l8.5 7 8.5-7"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 2h-15z"/><path d="M10 21a2.2 2.2 0 0 0 4 0"/></symbol>
+<symbol id="i-bell-off" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 2h-15z"/><path d="M10 21a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></symbol>
+<symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11.5l-8 8a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.5 17a1.7 1.7 0 0 1-2.4-2.4L14.5 7"/></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 14c1 1.5 2.2 2.2 3.5 2.2s2.5-.7 3.5-2.2"/><path d="M9.2 9.6h.01M14.8 9.6h.01" stroke-width="2.4"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L3 10.5l7 2.5 2.5 7z"/><path d="M10 13L21 3"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 5l-7 7 7 7"/></symbol>
+<symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></symbol>
+<symbol id="i-group" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2"/><path d="M3.5 19c.6-3 3-4.8 5.5-4.8s4.9 1.8 5.5 4.8"/><path d="M18 7.5v6M15 10.5h6"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+<symbol id="i-reply" viewBox="0 0 24 24"><path d="M9.5 6L4 11.5 9.5 17"/><path d="M4 11.5h9a6 6 0 0 1 6 6V19"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16.5 4a2.1 2.1 0 0 1 3 3L8 18.5z"/><path d="M14.5 6l3 3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6.5a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.8 12.5h9.4L17.5 7M10 11v5M14 11v5"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+</defs></svg>
 
 <section id="auth">
  <form class="card" id="af" novalidate>
-  <h1>AirGram</h1>
+  <h1 class="wm">AirGram</h1>
   <p class="sub">Лёгкий мессенджер. Войдите или создайте аккаунт</p>
   <input id="an" maxlength="40" placeholder="Имя" aria-label="Имя" autocomplete="nickname" hidden>
   <input id="ae" type="email" placeholder="Почта" aria-label="Почта" autocomplete="email" inputmode="email">
@@ -248,40 +392,42 @@ mark{background:rgba(255,200,0,.4);color:inherit;border-radius:3px}
 
 <div id="app" hidden>
  <aside id="side">
-  <div class="bar">
-   <button class="ib" id="me" type="button" aria-label="Мой профиль"></button>
-   <input id="q" type="search" placeholder="Поиск чатов и людей" aria-label="Поиск чатов и людей" autocomplete="off">
-   <button class="ib" id="th" type="button" aria-label="Сменить тему">◐</button>
-   <button class="ib" id="ng" type="button" aria-label="Новая группа" title="Новая группа">＋</button>
-  </div>
+  <div class="brand"><svg class="ic"><use href="#i-mail"/></svg><span class="wm">AirGram</span></div>
+  <div class="stripe"></div>
+  <label class="sbox"><svg class="ic"><use href="#i-search"/></svg><input id="q" type="search" placeholder="Поиск: чаты, люди, сообщения" aria-label="Поиск чатов, людей и сообщений" autocomplete="off"></label>
   <div id="list"></div>
+  <div class="dock">
+   <button class="meb" id="me" type="button" aria-label="Мой профиль"></button>
+   <button class="ib" id="th" type="button" aria-label="Сменить тему" title="Тема"><svg class="ic"><use href="#i-theme"/></svg></button>
+   <button class="ib" id="ng" type="button" aria-label="Новая группа" title="Новая группа"><svg class="ic"><use href="#i-group"/></svg></button>
+  </div>
  </aside>
  <main id="chat">
-  <div id="empty">Выберите чат или найдите человека</div>
+  <div id="empty"><svg class="ic env"><use href="#i-mail"/></svg><b class="wm">Выберите чат</b><span>или найдите человека в поиске</span></div>
   <div id="room" hidden>
    <div class="hd" id="hdr">
-    <button class="ib" id="back" type="button" aria-label="Назад к чатам">‹</button>
+    <button class="ib" id="back" type="button" aria-label="Назад к чатам"><svg class="ic"><use href="#i-back"/></svg></button>
     <button class="hi" id="hi" type="button"><span id="hav"></span><span class="ti"><b id="hn"></b><small id="hs"></small></span></button>
-    <button class="ib" id="sch" type="button" aria-label="Поиск по сообщениям" title="Поиск по сообщениям">🔍</button>
-    <button class="ib" id="mute" type="button" aria-label="Выключить уведомления чата">🔔</button>
+    <button class="ib" id="sch" type="button" aria-label="Поиск по сообщениям" title="Поиск по сообщениям"><svg class="ic"><use href="#i-search"/></svg></button>
+    <button class="ib" id="mute" type="button" aria-label="Выключить уведомления чата"><svg class="ic"><use href="#i-bell"/></svg></button>
    </div>
    <div class="hd" id="sbar" hidden>
-    <button class="ib" id="sx" type="button" aria-label="Снять выделение">✕</button>
+    <button class="ib" id="sx" type="button" aria-label="Снять выделение"><svg class="ic"><use href="#i-close"/></svg></button>
     <span id="sbt">Выбрано сообщение</span>
-    <button class="sbtn" id="sre" type="button" aria-label="Ответить" title="Ответить">↩</button>
-    <button class="sbtn" id="sed" type="button" aria-label="Изменить" title="Изменить">✎</button>
-    <button class="sbtn" id="scp" type="button" aria-label="Копировать" title="Копировать">⧉</button>
-    <button class="sbtn" id="ssv" type="button" aria-label="В избранное" title="В избранное">★</button>
-    <button class="sbtn dng" id="sdl" type="button" aria-label="Удалить" title="Удалить">🗑</button>
+    <button class="sbtn" id="sre" type="button" aria-label="Ответить" title="Ответить"><svg class="ic"><use href="#i-reply"/></svg></button>
+    <button class="sbtn" id="sed" type="button" aria-label="Изменить" title="Изменить"><svg class="ic"><use href="#i-edit"/></svg></button>
+    <button class="sbtn" id="scp" type="button" aria-label="Копировать" title="Копировать"><svg class="ic"><use href="#i-copy"/></svg></button>
+    <button class="sbtn" id="ssv" type="button" aria-label="В избранное" title="В избранное"><svg class="ic"><use href="#i-star"/></svg></button>
+    <button class="sbtn dng" id="sdl" type="button" aria-label="Удалить" title="Удалить"><svg class="ic"><use href="#i-trash"/></svg></button>
    </div>
-   <div id="mw"><div id="msgs" role="log" aria-live="polite"></div><button id="jd" type="button" aria-label="К последним сообщениям" hidden>↓<span id="jdc" hidden></span></button></div>
+   <div id="mw"><div id="msgs" role="log" aria-live="polite"></div><button id="jd" type="button" aria-label="К последним сообщениям" hidden><svg class="ic"><use href="#i-down"/></svg><span id="jdc" hidden></span></button></div>
    <div id="mn" hidden></div>
-   <div id="rp" hidden><span class="rpb"><b id="rpn"></b><span id="rpt"></span></span><button class="ib" id="rpx" type="button" aria-label="Отменить ответ">✕</button></div>
-   <div id="att" hidden><img id="atti" alt=""><span>Фото готово к отправке. Можно добавить подпись</span><button class="ib" id="attx" type="button" aria-label="Убрать фото">✕</button></div>
+   <div id="rp" hidden><span class="rpb"><b id="rpn"></b><span id="rpt"></span></span><button class="ib" id="rpx" type="button" aria-label="Отменить ответ"><svg class="ic"><use href="#i-close"/></svg></button></div>
+   <div id="att" hidden><img id="atti" alt=""><span>Фото готово к отправке. Можно добавить подпись</span><button class="ib" id="attx" type="button" aria-label="Убрать фото"><svg class="ic"><use href="#i-close"/></svg></button></div>
    <div id="pk" hidden></div>
-   <div class="ft"><button class="ib" id="clip" type="button" aria-label="Прикрепить фото">📎</button><button class="ib" id="emo" type="button" aria-label="Стикеры" aria-expanded="false">🙂</button><textarea id="inp" rows="1" maxlength="2000" placeholder="Написать сообщение" aria-label="Сообщение"></textarea><button id="send" type="button" aria-label="Отправить">➤</button></div>
+   <div class="ft"><button class="ib" id="clip" type="button" aria-label="Прикрепить фото"><svg class="ic"><use href="#i-clip"/></svg></button><button class="ib" id="emo" type="button" aria-label="Стикеры" aria-expanded="false"><svg class="ic"><use href="#i-smile"/></svg></button><textarea id="inp" rows="1" maxlength="2000" placeholder="Написать сообщение" aria-label="Сообщение"></textarea><button id="send" type="button" aria-label="Отправить"><svg class="ic"><use href="#i-send"/></svg></button></div>
    <div id="cs">
-    <div class="hd"><button class="ib" id="csb" type="button" aria-label="Закрыть поиск">‹</button><input id="csq" type="search" placeholder="Поиск в этом чате" aria-label="Поиск в этом чате" autocomplete="off"></div>
+    <div class="hd"><button class="ib" id="csb" type="button" aria-label="Закрыть поиск"><svg class="ic"><use href="#i-back"/></svg></button><input id="csq" type="search" placeholder="Поиск в этом чате" aria-label="Поиск в этом чате" autocomplete="off"></div>
     <div class="cf" id="cfs"></div>
     <div class="cr"><select id="cso" aria-label="Порядок"><option value="desc">Сначала новые</option><option value="asc">Сначала старые</option></select><label>С <input type="date" id="csf"></label><label>По <input type="date" id="cst"></label></div>
     <div id="csl"></div>
@@ -301,7 +447,7 @@ mark{background:rgba(255,200,0,.4);color:inherit;border-radius:3px}
   <div class="fl"><label for="pt">Тег: по нему вас можно упомянуть через @</label><input id="pt" maxlength="25" placeholder="@тег (латиница, цифры, _)" autocapitalize="none" autocomplete="off" spellcheck="false"></div>
   <div class="fl"><label for="pa">О себе</label><input id="pa" maxlength="70" placeholder="О себе"></div>
   <button class="lnk" id="pnotif" type="button">Включить уведомления</button>
-  <p class="sub" id="pnh">Уведомления приходят о личных сообщениях и упоминаниях @тег, пока AirGram открыт в браузере. Для отдельного чата их можно выключить кнопкой 🔔 в шапке чата.</p>
+  <p class="sub" id="pnh">Уведомления приходят о личных сообщениях и упоминаниях @тег, пока AirGram открыт в браузере. Для отдельного чата их можно выключить кнопкой с колокольчиком в шапке чата.</p>
   <div class="act"><button class="dng" id="pout" type="button">Выйти</button><span class="sp"></span><button id="pc" type="button">Отмена</button><button id="po" type="button">Сохранить</button></div>
  </div>
 </div>
@@ -366,7 +512,7 @@ const ERR=[["Invalid login credentials","Неверная почта или па
 const errText=m=>{m=String(m||"");for(const[k,v]of ERR)if(m.includes(k))return v;return m||"Что-то пошло не так"};
 
 /* ===== Тема ===== */
-const TH=[["","Авто","linear-gradient(135deg,#fff 50%,#17212b 50%)"],["light","Светлая","#fff"],["dark","Тёмная","#17212b"],["black","Чёрная","linear-gradient(135deg,#2c2c2c,#0b0b0b)"],["sky","Воздух","radial-gradient(ellipse at 30% 28%,#fff 0,transparent 55%),linear-gradient(180deg,#7cc4f8,#eaf6ff)"]];
+const TH=[["","Авто","linear-gradient(135deg,#fff 50%,#141b26 50%)"],["light","Светлая","#fff"],["dark","Тёмная","#141b26"],["black","Чёрная","linear-gradient(135deg,#2c2c2c,#0b0b0b)"],["sky","Воздух","radial-gradient(ellipse at 30% 28%,#fff 0,transparent 55%),linear-gradient(180deg,#7cc4f8,#eaf6ff)"]];
 let theme="";try{theme=localStorage.getItem("airgram-theme")||""}catch(e){}
 if(!["light","dark","sky","black"].includes(theme))theme="";
 function applyTheme(t){
@@ -616,7 +762,7 @@ function paintMute(){
  const c=chats.get(cur);if(!c)return;
  const b=$("mute");
  b.hidden=c.kind==="saved";
- b.textContent=c.muted?"🔕":"🔔";
+ b.innerHTML='<svg class="ic"><use href="#i-'+(c.muted?"bell-off":"bell")+'"/></svg>';
  b.setAttribute("aria-label",c.muted?"Включить уведомления чата":"Выключить уведомления чата");
  b.title=c.muted?"Включить уведомления чата":"Выключить уведомления чата";
 }
@@ -1368,7 +1514,7 @@ const swatches=c=>COL.map(k=>`<button type="button" class="sw1${k===c?" on":""}"
 
 /* ===== Мой профиль ===== */
 let D=null;
-function renderMe(){$("me").innerHTML=av(prof.name,prof.color,prof.avatar)}
+function renderMe(){$("me").innerHTML=av(prof.name,prof.color,prof.avatar)+'<span class="mn">'+esc(prof.name)+"</span>"}
 function paintP(){
  const n=$("pn").value.trim();
  $("pav").innerHTML=av(n||"?",D.c,D.img);
